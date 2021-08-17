@@ -48,21 +48,19 @@
     <div class="mt-4 mx-5">
       <div class="d-flex">
     
-      <select class="custom-select" id="inputGroupSelect" aria-label="Example select with button addon">
-       
+      <select class="custom-select" id="inputGroupSelect" aria-label="Example select with button addon">       
         <option value="name">Name</option>
         <option value="email">Email</option>
         <option value="username">Username</option>
       </select>
-      <input id='searchUser' onkeyup ="filter()" placeholder="search.."></input>
-    
-
+      <input id='searchUser' onkeyup ="filter()" placeholder="search.."></input>   
+      <button class="btn btn-dark mx-3" id="ordering" onclick = "ascDes()">Ascending/Descending</button>
     </div>
     <div class="container mt-4">
       <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col"></th>
+            <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Username</th>
             <th scope="col">Email</th>
@@ -117,7 +115,6 @@
       users.innerHTML = ""
        makeUserCards(filteredArray)
        console.log(filteredArray)
-
        console.log(inputvalue)
 
      }
@@ -136,6 +133,22 @@
                 </tr>`;
         });
       }
+      let state = 0
+      const ascDes = () => {
+        let sortedArray = []
+        let button = document.querySelector('ordering')
+        if (state === 0){
+        sortedArray = results.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase()?1:a.name.toLowerCase() < b.name.toLowerCase()?-1:0)
+        state += 1
+        }
+        else{
+        sortedArray = results.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase()?1:a.name.toLowerCase() > b.name.toLowerCase()?-1:0)
+        state -= 1
+        }
+        users.innerHTML = ""
+        makeUserCards(sortedArray)
+      }
+      
     </script>
   </body>
 </html>

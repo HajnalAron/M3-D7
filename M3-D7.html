@@ -97,7 +97,11 @@
         makeUserCards(result);
         console.log(result);
       };
-
+      const extractNames = (userData) => {
+        let usernames = userData.map(user => user.name)
+        console.log(usernames)
+      }
+      
      const filter = () => {
        const inputvalue = document.querySelector('#searchUser').value
        const select = document.querySelector('#inputGroupSelect').value

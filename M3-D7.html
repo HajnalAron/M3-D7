@@ -101,7 +101,11 @@
         let usernames = userData.map(user => user.name)
         console.log(usernames)
       }
-      
+
+      const extractAddressData = (userData) => {
+        let addresses = userData.map(user => Object.values(user.address).filter(value => typeof value !== "object").join(', '))
+        console.log(addresses)
+      }
      const filter = () => {
        const inputvalue = document.querySelector('#searchUser').value
        const select = document.querySelector('#inputGroupSelect').value
@@ -127,9 +131,11 @@
                   <td>${user.email}</td>
                   <td>${user.website}</td>
                   <td>${user.phone}</td>
+                  <td>${Object.values(user.address).filter(value => typeof value !== "object").join(', ')}</td>
+                  <td>${user.company.name}</td>
                 </tr>`;
         });
-      };
+      }
     </script>
   </body>
 </html>

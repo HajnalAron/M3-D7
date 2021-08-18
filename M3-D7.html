@@ -53,7 +53,7 @@
         <option value="email">Email</option>
         <option value="username">Username</option>
       </select>
-      <input id='searchUser' onkeyup ="filter()" placeholder="search.."></input>   
+      <input id='searchUser' onkeyup="filter()" placeholder="search.."></input>   
       <button class="btn btn-dark mx-3" id="ordering" onclick = "ascDes()">Ascending/Descending</button>
     </div>
     <div class="container mt-4">
@@ -109,7 +109,7 @@
        const inputvalue = document.querySelector('#searchUser').value
        const select = document.querySelector('#inputGroupSelect').value
 
-       console.log(select)
+
 
        let filteredArray = results.filter(user =>
          user[select].toLowerCase().includes(inputvalue.toLowerCase()))
@@ -135,21 +135,43 @@
                 </tr>`;
         });
       }
-      let state = 0
+      let sorted = true;
       const ascDes = () => {
-        let sortedArray = []
-        let button = document.querySelector('ordering')
-        if (state === 0){
-        sortedArray = results.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase()?1:a.name.toLowerCase() < b.name.toLowerCase()?-1:0)
-        state += 1
+        const sortedUsers = results.sort((a, b) => a.name.localeCompare(b.name));
+        if (sorted) {
+          users.innerHTML = ""
+          makeUserCards(sortedUsers);
+          sorted = false;
+        } else {
+          users.innerHTML = ""
+          makeUserCards(sortedUsers.reverse());
+          sorted = true;
         }
-        else{
-        sortedArray = results.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase()?1:a.name.toLowerCase() > b.name.toLowerCase()?-1:0)
-        state -= 1
-        }
-        users.innerHTML = ""
-        makeUserCards(sortedArray)
-      }
+      };
+
+console.log(sort(userArr));
+
+sortBtn.addEventListener("click", () => {
+  sort(userArr);
+});
+
+      
+      // const ascDes = () => {
+      //   let sortedArray = []
+      //   let button = document.querySelector('ordering')
+      //   if (state === 0){
+      //   // sortedArray = results.sort((a, b) => a.name.localeCompare(b.name)) shorter code that also works
+      //   sortedArray = results.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase()?1:a.name.toLowerCase() < b.name.toLowerCase()?-1:0)
+      //   state += 1
+      //   }
+      //   else{
+      //   // sortedArray = results.sort((a, b) => b.name.localeCompare(a.name)) shorter code that also works
+      //   sortedArray = results.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase()?1:a.name.toLowerCase() > b.name.toLowerCase()?-1:0)
+      //   state -= 1
+      //   }
+      //   users.innerHTML = ""
+      //   makeUserCards(sortedArray)
+      // }
       
     </script>
   </body>
